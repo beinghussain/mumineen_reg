@@ -16,18 +16,18 @@ class App extends Component {
             <div>
               <Card className="formCard">
                 <div className="logoAndHeaderContainer">
-                  <h2>Register as a seller</h2>
+                  <h2 className="RegisterHeading">Register as a seller</h2>
                 </div>
                 <div>
-                  <TextField className="TextField" fullWidth floatingLabelText="Your Name" hintText="Your Name" />
-                  <TextField className="TextField" fullWidth floatingLabelText="Email address" hintText="Email address" />
-                  <TextField className="TextField" multiLine floatingLabelText="Password" fullWidth hintText="Password" />
-                  <TextField className="TextField" multiLine floatingLabelText="Retype Password" fullWidth hintText="Retype Password" />
+                  <TextField spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Your Name" hintText="Your Name" />
+                  <TextField spellCheck={false} type="email" className="TextField" fullWidth floatingLabelText="Email address" hintText="Email address" />
+                  <TextField spellCheck={false} type="password" className="TextField" floatingLabelText="Password" fullWidth hintText="Password" />
+                  <TextField spellCheck={false} type="password" className="TextField" floatingLabelText="Retype Password" fullWidth hintText="Retype Password" />
                   <RaisedButton primary={true} label="next" className="nextButton" />
                 </div>
               </Card>
               <div className="footerContainer">
-                <span>Copyright 2017 | Mumineen Shop</span>
+                <span className="footerText">Copyright 2017 | Mumineen Shop</span>
               </div>
             </div>
           </div>

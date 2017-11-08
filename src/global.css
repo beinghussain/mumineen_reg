@@ -9,6 +9,11 @@ input {
 	font-weight: 500 !important;
 }
 
+body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
 .backgroundContainer {
 	background: #fff;
 	bottom: 0;
@@ -35,16 +40,22 @@ input {
 	margin-bottom: 15px;
 }
 
-.nextButton button {
-	float: right;
+.nextButton {
+	right: 0;
 	overflow: hidden;
 	display: block !important;
+}
+
+.RegisterHeading {
+	font-size: 25px;
+	font-weight: 600;
+	color: #00c29d;
 }
 
 @media screen and (max-width: 480px) {
 	.formCard {
 		width: 100%;
-		top: 10px;
+		top: 0px;
 		padding: 15px;
 		height: 100%;
 	}
@@ -61,8 +72,13 @@ input {
 	bottom: 0;
 	text-align: center;
 	display: block;
-	width: 100%;
+	width: calc(100% - 30px);
 	padding: 15px;
 	overflow-x: hidden !important;
 }
 
+.footerText {
+	color: rgba(0, 0, 0, 0.5);
+	font-size: 13px;
+	text-align: center;
+}
