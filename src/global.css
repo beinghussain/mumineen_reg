@@ -14,6 +14,10 @@ body {
   padding: 0 !important;
 }
 
+.loadingBar {
+  margin: -30px;
+}
+
 .subHeader {
   bottom: 20px;
   position: relative;
@@ -32,6 +36,10 @@ body {
 }
 
 .formCard {
+  padding: 15px;
+}
+
+.formCardContainer {
   z-index: 999 !important;
   width: 50%;
   margin-left: auto;
