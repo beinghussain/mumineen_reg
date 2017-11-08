@@ -1,84 +1,89 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:300i,400,400i,500,500i,600,600i,700,700i,800,800i,900");
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,700");
 
 *,
 input {
-	font-family: "Montserrat", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 input {
-	font-weight: 500 !important;
+  font-weight: 500 !important;
 }
 
 body {
-	margin: 0 !important;
-	padding: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.subHeader {
+  bottom: 20px;
+  position: relative;
 }
 
 .backgroundContainer {
-	background: #fff;
-	bottom: 0;
-	direction: ltr;
-	left: 0;
-	overflow: hidden;
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: -20;
+  background: #fff;
+  bottom: 0;
+  direction: ltr;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -20;
 }
 
 .formCard {
-	z-index: 999 !important;
-	width: 50%;
-	margin-left: auto;
-	margin-right: auto;
-	top: 100px;
-	position: relative;
-	padding: 30px;
+  z-index: 999 !important;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 100px;
+  position: relative;
+  padding: 30px;
 }
 
 .TextField {
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .nextButton {
-	right: 0;
-	overflow: hidden;
-	display: block !important;
+  right: 0;
+  overflow: hidden;
+  display: block !important;
 }
 
 .RegisterHeading {
-	font-size: 25px;
-	font-weight: 600;
-	color: #00c29d;
+  font-size: 25px;
+  font-weight: 600;
+  color: #00c29d;
 }
 
 @media screen and (max-width: 480px) {
-	.formCard {
-		width: 100%;
-		top: 0px;
-		padding: 15px;
-		height: 100%;
-	}
-	.formContainer {
-		margin: 5px;
-	}
-	.backgroundContainer {
-		background: #e0e0e0;
-	}
+  .formCard {
+    width: 100%;
+    top: 0px;
+    padding: 15px;
+    height: 100%;
+  }
+  .formContainer {
+    margin: 5px;
+  }
+  .backgroundContainer {
+    background: #e0e0e0;
+  }
 }
 
 .footerContainer {
-	position: fixed;
-	bottom: 0;
-	text-align: center;
-	display: block;
-	width: calc(100% - 30px);
-	padding: 15px;
-	overflow-x: hidden !important;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  display: block;
+  width: calc(100% - 30px);
+  padding: 15px;
+  overflow-x: hidden !important;
 }
 
 .footerText {
-	color: rgba(0, 0, 0, 0.5);
-	font-size: 13px;
-	text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+  text-align: center;
 }
