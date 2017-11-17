@@ -23,12 +23,12 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.props.match.params.step === "1") {
-      var cleave = new Cleave(".phone input", {
-        numericOnly: true,
-        delimiter: "  ",
-        prefix: "+91 ",
-        blocks: [14]
-      });
+      // var cleave = new Cleave(".phone input", {
+      //   numericOnly: true,
+      //   delimiter: "  ",
+      //   prefix: "+91 ",
+      //   blocks: [14]
+      // });
     }
 
     if (this.props.location.state) {
@@ -85,10 +85,29 @@ class Register extends Component {
   };
 
   vPhone = () => {
-    let phoneWhole = this.refs.phone.getValue();
-    let phone = phoneWhole.split(" ")[1];
+    const { phone } = this.state;
+    if (phone.length === 10) {
+      this.setState({
+        validPhone: true
+      });
+    } else {
+      this.setState({
+        validPhone: false
+      });
+    }
     return phone.length === 10 ? true : false;
   };
+
+  handlePhone = e => {
+    let phone = e.target.value;
+    if (phone.length <= 10) {
+      this.setState({
+        phone
+      });
+    }
+  };
+
+  sendOTP = () => {};
 
   handleNext = () => {
     const { username, email, password, passwordRetype } = this.state;
@@ -98,8 +117,7 @@ class Register extends Component {
       });
     }
 
-    let phoneWhole = this.refs.phone.getValue();
-    let phone = phoneWhole.split(" ")[1];
+    let phone = this.refs.phone.getValue();
     if (phone === 0 || phone < 10) {
       this.setState({
         phoneError: "Please enter a valid phone number"
@@ -134,7 +152,6 @@ class Register extends Component {
 
     const { vUser, vEmail, vPass, vPhone } = this;
     if (vUser() && vEmail() && vPass() && vPhone()) {
-      console.log("Entering...");
       this.setState({
         loading: true
       });
@@ -167,8 +184,15 @@ class Register extends Component {
                     <TextField errorText={this.state.nameError} onChange={this.handleName} value={this.state.username} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Username" hintText="Username" />
                     <TextField errorText={this.state.emailError} onChange={this.handleEmail} value={this.state.email} spellCheck={false} type="email" className="TextField" fullWidth floatingLabelText="Email address" hintText="Email address" />
                     <TextField errorText={this.state.passwordError} autoComplete="new-password" onChange={this.handlePassword} value={this.state.password} spellCheck={false} type="password" className="TextField" floatingLabelText="Password" fullWidth hintText="Password" />
-                    <TextField errorText={this.state.phoneError} ref="phone" className="TextField phone" floatingLabelText="Phone" floatingLabelFixed={true} fullWidth />
-                    <RaisedButton onClick={this.handleNext} primary={true} label="next" className="nextButton" />
+                    <div>
+                      {this.state.phone.length === 10 ? (
+                        <span onClick={this.sendOTP} className="sendOtp">
+                          Send OTP
+                        </span>
+                      ) : null}
+                      <TextField onChange={this.handlePhone} errorText={this.state.phoneError} value={this.state.phone} className="TextField" floatingLabelText="Phone" floatingLabelFixed={true} fullWidth />
+                      <RaisedButton onClick={this.handleNext} primary={true} label="next" className="nextButton" />
+                    </div>
                   </div>
                 </div>
               </div>

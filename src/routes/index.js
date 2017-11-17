@@ -7,7 +7,7 @@ class Routes extends Component {
       <div>
         <BrowserRouter>
           <div>
-            <Route exact path="/" component={Register} />
+            <Route exact path="/" component={() => <Redirect to="/register/1" />} />
             <Route exact path="/register" component={() => <Redirect to="/register/1" />} />
             <Route exact path="/register/:step" component={Register} />
           </div>
