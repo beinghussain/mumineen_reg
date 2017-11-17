@@ -2,21 +2,23 @@ import React, { Component } from "react";
 import background from "../background.svg";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { Card, TextField, RaisedButton, LinearProgress } from "material-ui";
+import Cleave from "cleave.js";
 
 class Register extends Component {
   state = {
     name: "",
     email: "",
     password: "",
-    passwordRetype: "",
+    phone: "",
     nameError: "",
     passwordError: "",
     emailError: "",
-    passwordMatchError: ""
+    phoneError: ""
   };
+  componentDidMount() {}
   handleName = e => {
     this.setState({
-      name: e.target.value,
+      name: e.target.value.toLowerCase(),
       nameError: ""
     });
   };
@@ -38,12 +40,20 @@ class Register extends Component {
       });
     }
   };
-  handlePasswordRetype = e => {
+
+  handlePhone = e => {
+    if (cleave) {
+      var cleave = new Cleave(".phone input", {
+        prefix: "+91 ",
+        delimiter: "-",
+        uppercase: true
+      });
+    }
     this.setState({
-      passwordRetype: e.target.value,
-      passwordMatchError: ""
+      phone: e.target.value
     });
   };
+
   emailVerification = email => {
     if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       return true;
@@ -70,7 +80,7 @@ class Register extends Component {
     const { name, email, password, passwordRetype } = this.state;
     if (name === "") {
       this.setState({
-        nameError: "Please enter a valid name"
+        nameError: "Please enter a valid username"
       });
     }
 
@@ -81,12 +91,6 @@ class Register extends Component {
     } else if (password.length < 8) {
       this.setState({
         passwordError: "Password should be more than 8 characters"
-      });
-    }
-
-    if (passwordRetype === "") {
-      this.setState({
-        passwordMatchError: "Please enter password"
       });
     }
 
@@ -102,12 +106,6 @@ class Register extends Component {
       }
     }
 
-    if (password !== passwordRetype) {
-      this.setState({
-        passwordMatchError: "Password should match"
-      });
-    }
-
     const { vName, vEmail, vPass } = this;
     if (vName() && vEmail() && vPass()) {
       this.setState({
@@ -115,41 +113,36 @@ class Register extends Component {
       });
 
       setTimeout(() => {
-        this.props.history.push("/");
-      }, 1000);
+        this.setState({
+          loading: false
+        });
+      }, 2000);
     }
   };
   render() {
     return (
-      <MuiThemeProvider className="App">
+      <div className="App">
         <div className="root">
-          <div className="backgroundContainer" aria-hidden="true">
-            <img alt="background" src={background} />
-          </div>
           <div className="formContainer">
             <div className="formCardContainer">
               {this.state.loading ? <LinearProgress className="loadingBar" mode="indeterminate" /> : null}
-
-              <Card className="formCard">
+              <div className="formCard">
                 <div className="logoAndHeaderContainer">
                   <h2 className="RegisterHeading">Register as a seller</h2>
                   <span className="subHeader">Website is not laucnhed yet. This is pre-registrations for all those Mumineen who want to sell their products online</span>
                 </div>
                 <div>
-                  <TextField errorText={this.state.nameError} onChange={this.handleName} value={this.state.name} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Your Name" hintText="Your Name" />
+                  <TextField errorText={this.state.nameError} onChange={this.handleName} value={this.state.name} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Username" hintText="Username" />
                   <TextField errorText={this.state.emailError} onChange={this.handleEmail} value={this.state.email} spellCheck={false} type="email" className="TextField" fullWidth floatingLabelText="Email address" hintText="Email address" />
                   <TextField errorText={this.state.passwordError} autoComplete="new-password" onChange={this.handlePassword} value={this.state.password} spellCheck={false} type="password" className="TextField" floatingLabelText="Password" fullWidth hintText="Password" />
-                  <TextField errorText={this.state.passwordMatchError} autoComplete="new-password" onChange={this.handlePasswordRetype} value={this.state.passwordRetype} spellCheck={false} type="password" className="TextField" floatingLabelText="Retype Password" fullWidth hintText="Retype Password" />
+                  <TextField onFocus={this.setPrefix} errorText={this.state.phoneError} autoComplete="new-password" onChange={this.handlePhone} value={this.state.phone} spellCheck={false} type="phone" className="TextField phone" floatingLabelText="Phone" fullWidth />
                   <RaisedButton onClick={this.handleNext} primary={true} label="next" className="nextButton" />
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
-          <div className="footerContainer">
-            <span className="footerText">Copyright 2017 | Mumineen Shop</span>
-          </div>
         </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }

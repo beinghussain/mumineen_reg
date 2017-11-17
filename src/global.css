@@ -10,6 +10,7 @@ input {
 }
 
 body {
+  background: #fafafa;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -23,30 +24,19 @@ body {
   position: relative;
 }
 
-.backgroundContainer {
-  background: #fff;
-  bottom: 0;
-  direction: ltr;
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -20;
-}
-
 .formCard {
   padding: 15px;
 }
 
 .formCardContainer {
   z-index: 999 !important;
-  width: 50%;
+  width: 33%;
   margin-left: auto;
   margin-right: auto;
+  border: 1px solid #e6e6e6;
+  background: #fff;
   top: 100px;
   position: relative;
-  padding: 30px;
 }
 
 .TextField {
@@ -62,21 +52,14 @@ body {
 .RegisterHeading {
   font-size: 25px;
   font-weight: 600;
-  color: #00c29d;
 }
 
 @media screen and (max-width: 480px) {
-  .formCard {
+  .formCardContainer {
     width: 100%;
-    top: 0px;
-    padding: 15px;
-    height: 100%;
-  }
-  .formContainer {
-    margin: 5px;
-  }
-  .backgroundContainer {
-    background: #e0e0e0;
+    top: 0 !important;
+    margin: 0 !important;
+    position: relative;
   }
 }
 

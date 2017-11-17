@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import "./global.css";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { MuiThemeProvider, getMuiTheme } from "material-ui/styles";
 import Routes from "./routes";
+
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: "#000",
+    primary1Color: "#F1654C"
+  }
+});
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <Routes />
       </MuiThemeProvider>
     );
