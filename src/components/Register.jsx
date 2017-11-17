@@ -3,33 +3,48 @@ import background from "../background.svg";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { Card, TextField, RaisedButton, LinearProgress } from "material-ui";
 import Cleave from "cleave.js";
+import $ from "jquery";
 
 class Register extends Component {
   state = {
-    name: "",
+    username: "",
     email: "",
     password: "",
     phone: "",
     nameError: "",
     passwordError: "",
     emailError: "",
-    phoneError: ""
+    phoneError: "",
+    fullName: "",
+    address: "",
+    pincode: "",
+    city: ""
   };
-  componentDidMount() {}
-  constructor(props) {
-    super(props);
-    if (props.match.params.step === "1") {
+
+  componentDidMount() {
+    if (this.props.match.params.step === "1") {
       var cleave = new Cleave(".phone input", {
         numericOnly: true,
         delimiter: "  ",
         prefix: "+91 ",
-        blocks: [9, 5]
+        blocks: [14]
+      });
+    }
+
+    if (this.props.location.state) {
+      const { username, email, password, phone } = this.props.location.state;
+      this.setState({
+        username,
+        email,
+        password,
+        phone
       });
     }
   }
+
   handleName = e => {
     this.setState({
-      name: e.target.value.toLowerCase(),
+      username: e.target.value.toLowerCase(),
       nameError: ""
     });
   };
@@ -40,16 +55,11 @@ class Register extends Component {
     });
   };
   handlePassword = e => {
-    const { password, passwordRetype } = this.state;
+    const { password } = this.state;
     this.setState({
       password: e.target.value,
       passwordError: ""
     });
-    if (password === passwordRetype) {
-      this.setState({
-        passwordMatchError: ""
-      });
-    }
   };
 
   emailVerification = email => {
@@ -59,9 +69,9 @@ class Register extends Component {
     return false;
   };
 
-  vName = () => {
-    const { name } = this.state;
-    return name.length > 4 ? true : false;
+  vUser = () => {
+    const { username } = this.state;
+    return username.length > 4 ? true : false;
   };
 
   vEmail = () => {
@@ -70,23 +80,33 @@ class Register extends Component {
   };
 
   vPass = () => {
-    const { password, passwordRetype } = this.state;
-    return password.length > 8 && password === passwordRetype ? true : false;
+    const { password } = this.state;
+    return password.length > 8 ? true : false;
+  };
+
+  vPhone = () => {
+    let phoneWhole = this.refs.phone.getValue();
+    let phone = phoneWhole.split(" ")[1];
+    return phone.length === 10 ? true : false;
   };
 
   handleNext = () => {
-    const { name, email, password, passwordRetype } = this.state;
-    if (name === "") {
+    const { username, email, password, passwordRetype } = this.state;
+    if (username === "") {
       this.setState({
         nameError: "Please enter a valid username"
       });
     }
 
     let phoneWhole = this.refs.phone.getValue();
-    let phone = phoneWhole.split(" ");
-    if (phone.length !== 10) {
+    let phone = phoneWhole.split(" ")[1];
+    if (phone === 0 || phone < 10) {
       this.setState({
-        phoneError: "Please enter your phone number"
+        phoneError: "Please enter a valid phone number"
+      });
+    } else {
+      this.setState({
+        phone: phone
       });
     }
 
@@ -112,8 +132,9 @@ class Register extends Component {
       }
     }
 
-    const { vName, vEmail, vPass } = this;
-    if (vName() && vEmail() && vPass()) {
+    const { vUser, vEmail, vPass, vPhone } = this;
+    if (vUser() && vEmail() && vPass() && vPhone()) {
+      console.log("Entering...");
       this.setState({
         loading: true
       });
@@ -122,6 +143,10 @@ class Register extends Component {
         this.setState({
           loading: false
         });
+        let phoneWhole = this.refs.phone.getValue();
+        let phone = phoneWhole.split(" ")[1];
+        const { username, password, email } = this.state;
+        this.props.history.push("/register/2", { username, password, email, phone });
       }, 2000);
     }
   };
@@ -139,16 +164,16 @@ class Register extends Component {
                     <span className="subHeader">All fields are mandatory</span>
                   </div>
                   <div>
-                    <TextField errorText={this.state.nameError} onChange={this.handleName} value={this.state.name} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Username" hintText="Username" />
+                    <TextField errorText={this.state.nameError} onChange={this.handleName} value={this.state.username} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Username" hintText="Username" />
                     <TextField errorText={this.state.emailError} onChange={this.handleEmail} value={this.state.email} spellCheck={false} type="email" className="TextField" fullWidth floatingLabelText="Email address" hintText="Email address" />
                     <TextField errorText={this.state.passwordError} autoComplete="new-password" onChange={this.handlePassword} value={this.state.password} spellCheck={false} type="password" className="TextField" floatingLabelText="Password" fullWidth hintText="Password" />
-                    <TextField ref="phone" className="TextField phone" floatingLabelText="Phone" floatingLabelFixed={true} fullWidth />
+                    <TextField errorText={this.state.phoneError} ref="phone" className="TextField phone" floatingLabelText="Phone" floatingLabelFixed={true} fullWidth />
                     <RaisedButton onClick={this.handleNext} primary={true} label="next" className="nextButton" />
                   </div>
                 </div>
               </div>
             ) : null}
-            {this.props.match.params.step === "1" ? (
+            {this.props.match.params.step === "2" ? (
               <div className="formCardContainer">
                 {this.state.loading ? <LinearProgress className="loadingBar" mode="indeterminate" /> : null}
                 <div className="formCard">
@@ -157,10 +182,10 @@ class Register extends Component {
                     <span className="subHeader">All fields are mandatory</span>
                   </div>
                   <div>
-                    <TextField errorText={this.state.nameError} onChange={this.handleName} value={this.state.name} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Username" hintText="Username" />
-                    <TextField errorText={this.state.emailError} onChange={this.handleEmail} value={this.state.email} spellCheck={false} type="email" className="TextField" fullWidth floatingLabelText="Email address" hintText="Email address" />
-                    <TextField errorText={this.state.passwordError} autoComplete="new-password" onChange={this.handlePassword} value={this.state.password} spellCheck={false} type="password" className="TextField" floatingLabelText="Password" fullWidth hintText="Password" />
-                    <TextField ref="phone" onFocus={this.setPrefix} className="TextField" floatingLabelText="Phone" floatingLabelFixed={true} fullWidth />
+                    <TextField onChange={this.handleFullName} value={this.state.fullname} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Full name" hintText="Full name" />
+                    <TextField multiLine={true} rows={3} onChange={this.handleAddress} value={this.state.address} spellCheck={false} type="text" className="TextField" fullWidth floatingLabelText="Address" hintText="Address" />
+                    <TextField onChange={this.handleCity} value={this.state.city} spellCheck={false} type="email" className="TextField" fullWidth floatingLabelText="City" hintText="Enter your city" />
+                    <TextField onChange={this.handlePincode} value={this.state.pincode} spellCheck={false} className="TextField" floatingLabelText="Pincode" fullWidth hintText="Enter 6 digit pincode" />
                     <RaisedButton onClick={this.handleNext} primary={true} label="next" className="nextButton" />
                   </div>
                 </div>
