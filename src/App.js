@@ -5,8 +5,8 @@ import Routes from "./routes";
 
 const muiTheme = getMuiTheme({
   palette: {
-    textColor: "#000",
-    primary1Color: "#F1654C"
+    textColor: "#2C3E50",
+    primary1Color: "#1ABC9C"
   }
 });
 
