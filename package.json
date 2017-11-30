@@ -6,9 +6,13 @@
     "cleave.js": "^1.0.6",
     "jquery": "^3.2.1",
     "material-ui": "^0.19.4",
+    "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-router-dom": "^4.2.2"
+    "react-phone-input": "^1.2.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"

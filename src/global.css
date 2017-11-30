@@ -10,9 +10,31 @@ input {
 }
 
 body {
-  background: url("http://www.paisleystudios.com.au/wp-content/uploads/2016/04/background-banner1.jpg");
+  background: #fafafa;
   margin: 0 !important;
   padding: 0 !important;
+  overflow-x: hidden;
+}
+
+.logoAndHeaderContainer {
+  background: #f9f9f9;
+  margin: -15px -15px 15px -15px;
+  padding: 20px;
+}
+
+.logo {
+  width: 80px;
+  text-align: center;
+  margin: auto;
+  display: block;
+}
+
+.RegisterHeading {
+  font-size: 25px;
+  color: #e24c3f;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .loadingBar {
@@ -23,6 +45,15 @@ body {
   bottom: 20px;
   position: relative;
   font-size: 11px;
+  text-align: center;
+  display: block;
+}
+
+.headerMain {
+  text-align: center;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  color: #1abc9c;
 }
 
 .formCard {
@@ -38,7 +69,14 @@ body {
   background: #fff;
   top: 100px;
   position: absolute;
-  box-shadow: 0px 5px 39px -1px rgb(216, 216, 216);
+  margin-bottom: 5%;
+  border-radius: 4px;
+}
+
+.errorPayment {
+  font-size: 13px;
+  position: relative;
+  bottom: 20px;
 }
 
 .TextField {
@@ -63,9 +101,15 @@ body {
   z-index: 9999;
 }
 
-.RegisterHeading {
-  font-size: 25px;
-  font-weight: 600;
+.verifyOTP {
+  position: absolute;
+  right: 0;
+  bottom: 125px;
+  font-size: 14px;
+  margin-right: 18px;
+  color: rgb(26, 188, 156);
+  cursor: pointer !important;
+  z-index: 9999;
 }
 
 @media screen and (max-width: 480px) {
@@ -76,6 +120,10 @@ body {
     top: 0 !important;
     margin: 0 !important;
     position: absolute;
+    border: 0;
+  }
+  body {
+    background: #fff;
   }
 }
 
