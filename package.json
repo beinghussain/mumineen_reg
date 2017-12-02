@@ -8,9 +8,13 @@
     "material-ui": "^0.19.4",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.0.0",
+    "react-columns": "^1.1.0",
     "react-dom": "^16.0.0",
+    "react-flexbox-grid": "^2.0.0",
+    "react-icons": "^2.2.7",
     "react-icons-kit": "^1.0.7",
     "react-phone-input": "^1.2.1",
+    "react-pure-grid": "^2.1.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2"

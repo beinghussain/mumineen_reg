@@ -6,4 +6,10 @@ export function authUser(response, cb) {
   });
 }
 
-export default { authUser };
+export function authAdmin(response, cb) {
+  ajax("auth_admin", {}, res => {
+    cb(res);
+  });
+}
+
+export default { authUser, authAdmin };

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TextField, RaisedButton, AutoComplete, Checkbox, Snackbar } from "material-ui";
 import { RadioButton, RadioButtonGroup } from "material-ui/RadioButton";
 import icon from "../assets/mumineenshopicon.svg";
-import ajax from "../libs/ajax";
+import { post } from "../libs/ajax";
 import cities from "../cities.json";
 import { NavigateNext } from "material-ui-icons";
 
@@ -202,7 +202,7 @@ class Register extends Component {
   };
 
   validateUsernameExists = e => {
-    ajax("validate_username", { username: e.target.value }, res => {
+    post("validate_username", { username: e.target.value }, res => {
       if (res === "success") {
         this.setState({
           nameError: "Username already exists",
@@ -224,7 +224,7 @@ class Register extends Component {
   };
 
   validateEmailExists = e => {
-    ajax("validate_email", { email: e.target.value }, res => {
+    post("validate_email", { email: e.target.value }, res => {
       if (res === "success") {
         this.setState({
           emailError: "Email already exists",
@@ -282,7 +282,7 @@ class Register extends Component {
     }
 
     if (phone.length === 14) {
-      ajax("validate_phone", { phone }, res => {
+      post("validate_phone", { phone }, res => {
         if (res === "success") {
           this.setState({
             phoneError: "Phone number already registered"
@@ -294,7 +294,7 @@ class Register extends Component {
 
   sendOtpVerifiation = () => {
     const { otp, phone } = this.state;
-    ajax("verify_otp", { otp, phone }, res => {
+    post("verify_otp", { otp, phone }, res => {
       let response = JSON.parse(res);
       if (response.type === "success" && response.message === "otp_verified") {
         this.setState({
@@ -329,9 +329,9 @@ class Register extends Component {
 
   sendOTP = () => {
     const { phone } = this.state;
-    ajax("validate_phone", { phone }, res => {
+    post("validate_phone", { phone }, res => {
       if (res === "failed") {
-        ajax("send_otp", { phone }, res => {
+        post("send_otp", { phone }, res => {
           let response = JSON.parse(res);
           if (response.type === "success") {
             this.setState({
@@ -360,7 +360,7 @@ class Register extends Component {
   reSendOTP = () => {
     const { phone } = this.state;
     if (phone.length === 14) {
-      ajax("resent_otp", { phone }, res => {
+      post("resent_otp", { phone }, res => {
         let response = JSON.parse(res);
 
         if (response.type === "success") {
@@ -641,7 +641,7 @@ class Register extends Component {
       });
     } else {
       const { username, fullname, password, address1, phone, address2, city, pincode, email, desc, businessName, sellTo, payments } = this.state;
-      ajax("register_user", { username, fullname, phone, password, address1, address2, city, pincode, email, desc, businessName, sellTo, payments }, res => {
+      post("register_user", { username, fullname, phone, password, address1, address2, city, pincode, email, desc, businessName, sellTo, payments }, res => {
         if (res !== "failed") {
           document.location = "/register/success";
         }

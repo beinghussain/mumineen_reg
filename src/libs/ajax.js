@@ -1,11 +1,24 @@
 import $ from "jquery";
-export default (url, data, cb) =>
+
+export function post(url, data, cb) {
   $.ajax({
-    url: "https://mumineenshop.com/api/" + url + ".php",
     type: "POST",
-    //dataType: "jsonp",
-    data,
-    success: response => {
-      cb(JSON.parse(response));
+    url: "https://mumineenshop.com/api/" + url + ".php",
+    data: data,
+    success: res => {
+      cb(JSON.parse(res));
     }
   });
+}
+
+export function get(url, cb) {
+  $.ajax({
+    type: "GET",
+    url: "https://mumineenshop.com/api/" + url + ".php",
+    success: res => {
+      cb(JSON.parse(res));
+    }
+  });
+}
+
+export default { post, get };
